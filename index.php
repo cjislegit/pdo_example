@@ -32,6 +32,7 @@ $pdo = new PDO($dsn, $user, $password);
 //User Input
 $author = "CJ";
 $is_published = true;
+$id = 1;
 
 //Positional Params
 // $sql = "SELECT * FROM post WHERE author = ?";
@@ -40,14 +41,21 @@ $is_published = true;
 // $posts = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 //Named Params
-$sql = "SELECT * FROM post WHERE author = :author && is_published = :is_published";
-$stmt = $pdo->prepare($sql);
-$stmt->execute(["author" => $author, "is_published" => $is_published]);
-$posts = $stmt->fetchAll(PDO::FETCH_OBJ);
+// $sql = "SELECT * FROM post WHERE author = :author && is_published = :is_published";
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute(["author" => $author, "is_published" => $is_published]);
+// $posts = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 // var_dump($posts);
 
 //Echos the title of every post returned
-foreach ($posts as $post) {
-    echo $post->title . "<br />";
-}
+// foreach ($posts as $post) {
+//     echo $post->title . "<br />";
+// }
+
+//Fetch Single Post
+$sql = "SELECT * FROM post WHERE id = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(["id" => $id]);
+$post = $stmt->fetch(PDO::FETCH_OBJ);
+echo $post->body;
